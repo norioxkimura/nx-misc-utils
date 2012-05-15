@@ -1,3 +1,9 @@
+nx-misc-utils (0.0.5-1) unstable; urgency=low
+
+  * Make mkvimprojects escape whitespaces.
+
+ -- Norio Kimura <kimura@monad.tv>  Tue, 15 May 2012 23:33:21 +0900
+
 nx-misc-utils (0.0.4-1) unstable; urgency=low
 
   * Make mkvimprojects exclude some filename patterns.
