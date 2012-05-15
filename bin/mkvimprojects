@@ -34,13 +34,18 @@ dirlabel () {
 	stack[${#stack[@]}]="$dir"
 }
 
+escape () {
+	echo ${1// /\\ }
+}
+
 root="${1:-.}"
 
 cd "$root"
 
 {
 files="`mktemp -t mkvimprojectsXXXX`"
-echo "/=`pwd` {"
+cwd_escaped=$(escape "$(pwd)")
+echo "/=$cwd_escaped {"
 find . -type d | grep -v '/\.' | sort | while read dir; do
 	dir="${dir#./}"
 	pushd "$dir" > /dev/null
@@ -49,7 +54,7 @@ find . -type d | grep -v '/\.' | sort | while read dir; do
 	if [ $n -ne 0 ]; then
 		if [ "$dir" != "." ]; then
 			dirlabel "$dir" $n
-			echo "$dirlabel_r=$dir {"
+			echo "$dirlabel_r=$(escape "$dir") {"
 		fi
 		while read file; do
 			file=${file#./}
