@@ -49,7 +49,8 @@ echo "/=$cwd_escaped {"
 find . -type d | grep -v '/\.' | sort | while read dir; do
 	dir="${dir#./}"
 	pushd "$dir" > /dev/null
-	find . -maxdepth 1 -type f | egrep -v '\.(pyc|elc)$' | egrep -v '^(tags|TAGS|\.sconsign\.dblite)$' | sort >| "$files"
+	find . -maxdepth 1 -type f \
+		| egrep -v '^\./\.' | egrep -v '\.(pyc|elc)$' | egrep -v '^\./(tags|TAGS)$' | sort >| "$files"
 	n=`cat "$files" | wc -l`
 	if [ $n -ne 0 ]; then
 		if [ "$dir" != "." ]; then
